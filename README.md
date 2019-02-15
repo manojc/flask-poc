@@ -35,7 +35,8 @@ deactivate
 
 ## Author
 
-Name - Manoj CHalode ([manojc](http://github.com/manojc))
+Name - Manoj Chalode ([manojc](http://github.com/manojc))
+
 Email - chalodem@gmail.com
 
 ---
