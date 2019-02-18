@@ -1,16 +1,16 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template as rt, jsonify
 app = Flask(__name__)
 
 
 @app.route("/")
 @app.route("/home")
 def hello():
-    return render_template("index.html")
+    return rt("index.html")
 
 
 @app.route("/about-us")
 def aboutUs():
-    return render_template("about-us.html")
+    return rt("about-us.html")
 
 
 @app.route("/api/budget/autotrader")
@@ -24,4 +24,4 @@ def autotraderBudgetPredictor():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    return render_template("error.html")
+    return rt("error.html")
