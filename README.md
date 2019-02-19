@@ -45,7 +45,7 @@ deactivate
 
 Application uses `aglio npm package` to generate documentation.
 
-Simply open the index.html file in browser.
+Documentation is by default available at http://localhost:5000
 
 Fire following commands to regenerate the docs -
 
@@ -59,9 +59,6 @@ npm i
 
 # generate docs (in case you have updated the docs)
 npm run docs
-
-# open documentation
-npm start
 
 ```
 
