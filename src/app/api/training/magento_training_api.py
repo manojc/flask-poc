@@ -1,10 +1,11 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 magento_training_api_mod = Blueprint('magento_training_api', __name__)
 
 
-@magento_training_api_mod.route("/training/magento")
-def autotradertrainingPredictor(request=None):
+@magento_training_api_mod.route("/training/magento", methods=['POST'])
+def autotradertrainingPredictor():
+    print(request.get_json())
     data = {
         "data": [
             "magento training API is unavailable at the moment"

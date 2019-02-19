@@ -1,10 +1,12 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+# from app.api.budget.test import test_mod, testFunc
 
 autotrader_budget_api_mod = Blueprint('autotrader_budget_api', __name__)
 
 
-@autotrader_budget_api_mod.route("/budget/autotrader")
-def autotraderBudgetPredictor(request=None):
+@autotrader_budget_api_mod.route("/budget/autotrader", methods=['POST'])
+def autotraderBudgetPredictor():
+    print(request.get_json())
     data = {
         "data": [
             {

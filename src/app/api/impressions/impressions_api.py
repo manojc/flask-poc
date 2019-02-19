@@ -1,10 +1,11 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 impressions_mod = Blueprint('impressions_api', __name__)
 
 
-@impressions_mod.route("/impressions")
-def autotraderBudgetPredictor(request=None):
+@impressions_mod.route("/impressions", methods=['POST'])
+def autotraderBudgetPredictor():
+    print(request.get_json())
     data = {
         "data": {
             "location": "new York",
