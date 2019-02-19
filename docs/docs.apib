@@ -1,0 +1,267 @@
+FORMAT: 1A
+HOST: http://localhost:8080
+
+# AIML API Reference
+
+This documentation is for AIML API which is used to get predicted data related to ads.
+
+It also provides endpoints to train the prediction logic
+
+Author: Manoj Chalode <manoj.chalode@localstars.com>
+
+Version: v1
+
+# Group Auth
+
+## Retrieve Auth Token → JSON [POST /api/auth]
+
+Retrieves authentication token using credentials.
+
+This token is required by all authenticated APIs
+
++ Request
+
+    + Body
+
+            {
+                "username" : "user",
+                "password" : "12345"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data" : {
+                    "token" : "asdWQEQWEpoijMNBqwdADS12a=="
+                },
+                "code": "200",
+                "message": null,
+                "isSuccessful": true
+            }
+
++ Request
+
+    + Body
+
+            {
+                "username" : "invalid",
+                "password" : "invalid"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data" : null,
+                "code": "404",
+                "message": "user not found"
+                "isSuccessful": false
+            }
+
+# Group Budget Prediction
+
+## Autotrader Budget Prediction → JSON [POST /api/budget/autotrader]
+
+Provides budget prediction values.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer asdWQEQWEpoijMNBqwdADS12a==
+
+    + Body
+
+            {
+                "totalCarPrice": "200000",
+                "averageCarPrice": "4000",
+                "carCount": 60,
+                "currency": "USD"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data" : [
+                    {
+                        "term": "monthly",
+                        "budget": 200,
+                        "currency": "USD",
+                        "recommended": true
+                    },
+                    {
+                        "term": "weekly",
+                        "budget": 50,
+                        "currency": "USD",
+                        "recommended": false
+                    },
+                    {
+                        "term": "daily",
+                        "budget": 7.2,
+                        "currency": "USD",
+                        "recommended": false
+                    }
+                ],                
+                "code": "200",
+                "message": null,
+                "isSuccessful": true
+            }
+
+# Group Impression Prediction
+
+## Retrieve Impression Counts → JSON [POST /api/impressions]
+
+Calls google adowrds API and gets impression statistics for provided location and keywords.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer asdWQEQWEpoijMNBqwdADS12a==
+
+    + Body
+
+            {
+                "location": "new York",
+                "cpm": 1.2,
+                "currency": "USD",
+                "keywords" : [
+                    "ford"
+                ],
+                "totalCarPrice": "200000",
+                "averageCarPrice": "4000",
+                "carCount": 60
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data" : {
+                    "location": "new York",
+                    "cpm": 1.2,
+                    "currency": "USD",
+                    "keywords" : [
+                        "ford"
+                    ],
+                    "predictions": [
+                        {
+                            "radius": {
+                                "value": 2,
+                                "unit": "KM"
+                            },
+                            "budgetAmount": 99,
+                            "impressions": 100000,
+                            "clicks": 2000,
+                            "marketingPredefinedAudiences": null,
+                            "leads": null,
+                            "numberOfSales": null,
+                            "salesValue": null,
+                            "recommended": true
+                        },
+                        {
+                            "radius": {
+                                "value": 5,
+                                "unit": "KM"
+                            },
+                            "budgetAmount": 199,
+                            "impressions": 200000,
+                            "clicks": 4000,
+                            "marketingPredefinedAudiences": null,
+                            "leads": null,
+                            "numberOfSales": null,
+                            "salesValue": null,
+                            "recommended": true
+                        }
+                    ]
+
+                },
+                "code": "200",
+                "message": null,
+                "isSuccessful": true
+            }
+
+
+
+# Group Training APIs
+
+## Autotrader Training API → JSON [POST /api/training/autotrader]
+
+This API allows to pass training data for autotrader ML model.
+
+P.S. - The API contract is not finalised yet.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer asdWQEQWEpoijMNBqwdADS12a==
+
+    + Body
+
+            {
+                "location": "new York",
+                "cpm": 1.2,
+                "currency": "USD",
+                "keywords" : [
+                    "ford"
+                ],
+                "totalCarPrice": "200000",
+                "averageCarPrice": "4000",
+                "carCount": 60
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data" : {
+                    "location": "new York",
+                    "cpm": 1.2,
+                    "currency": "USD",
+                    "keywords" : [
+                        "ford"
+                    ],
+                    "predictions": [
+                        {
+                            "radius": {
+                                "value": 2,
+                                "unit": "KM"
+                            },
+                            "budgetAmount": 99,
+                            "impressions": 100000,
+                            "clicks": 2000,
+                            "marketingPredefinedAudiences": null,
+                            "leads": null,
+                            "numberOfSales": null,
+                            "salesValue": null,
+                            "recommended": true
+                        },
+                        {
+                            "radius": {
+                                "value": 5,
+                                "unit": "KM"
+                            },
+                            "budgetAmount": 199,
+                            "impressions": 200000,
+                            "clicks": 4000,
+                            "marketingPredefinedAudiences": null,
+                            "leads": null,
+                            "numberOfSales": null,
+                            "salesValue": null,
+                            "recommended": true
+                        }
+                    ]
+
+                },
+                "code": "200",
+                "message": null,
+                "isSuccessful": true
+            }

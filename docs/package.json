@@ -1,0 +1,17 @@
+{
+    "name": "docs",
+    "version": "1.0.0",
+    "description": "docs for reach-prediction repository",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run docs && ./node_modules/.bin/http-server",
+        "docs": "./node_modules/.bin/aglio --theme-variables flatly -i ./docs.apib --full-width -o ./index.html",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "manojc",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "aglio": "^2.3.0",
+        "http-server": "^0.11.1"
+    }
+}

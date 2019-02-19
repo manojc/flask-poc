@@ -41,6 +41,30 @@ deactivate
 
 ---
 
+## Documentation
+
+Application uses `aglio npm package` to generate documentation.
+
+Simply open the index.html file in browser.
+
+Fire following commands to regenerate the docs -
+
+``` bash
+
+# go to docs directory
+cd docs
+
+# install npm packages
+npm i
+
+# generate docs (in case you have updated the docs)
+npm run docs
+
+# open documentation
+npm start
+
+```
+
 ## Author
 
 Name - Manoj Chalode ([manojc](http://github.com/manojc))
