@@ -27,7 +27,7 @@ source ./flask_poc_manojc_env/bin/activate
 # switch to the root directory of this git repo
 # set environment variables
 export FLASK_DEBUG=1
-export FLASK_APP=./src/index.py
+export FLASK_APP=./src/app/__init__.py
 
 # install dependencies
 pip install -r requirements.txt
