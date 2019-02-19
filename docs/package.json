@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "npm run docs && ./node_modules/.bin/http-server",
-        "docs": "./node_modules/.bin/aglio --theme-variables flatly -i ./docs.apib --full-width -o ./index.html",
+        "docs": "./node_modules/.bin/aglio --theme-variables flatly -i ./docs.apib --full-width -o ../src/app/ui/templates/index.html",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "manojc",
