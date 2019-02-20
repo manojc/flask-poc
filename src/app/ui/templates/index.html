@@ -13,7 +13,7 @@
   </span>}</span>,
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"200"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">isSuccessful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  "<span class="hljs-attribute">is_successful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">username</span>": <span class="hljs-value"><span class="hljs-string">"invalid"</span></span>,
   "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"invalid"</span>
@@ -21,18 +21,23 @@
     "<span class="hljs-attribute">data</span>" : <span class="hljs-value"><span class="hljs-literal">null</span></span>,
     "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"404"</span></span>,
     "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"user not found"</span>
-    <span class="hljs-string">"isSuccessful"</span>: <span class="hljs-literal">false</span>
+    <span class="hljs-string">"is_successful"</span>: <span class="hljs-literal">false</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="budget-prediction" class="resource-group"><h2 class="group-heading">Budget Prediction <a href="#budget-prediction" class="permalink">&para;</a></h2><div id="budget-prediction-autotrader-budget-prediction-→-json" class="resource"><h3 class="resource-heading">Autotrader Budget Prediction → JSON <a href="#budget-prediction-autotrader-budget-prediction-→-json" class="permalink">&nbsp;&para;</a></h3><div id="budget-prediction-autotrader-budget-prediction-→-json-post" class="action post"><h4 class="action-heading"><div class="name">Autotrader Budget Prediction → JSON</div><a href="#budget-prediction-autotrader-budget-prediction-→-json-post" class="method post">POST</a><code class="uri">/api/budget/autotrader</code></h4><p>Provides budget prediction values.</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:5000</span>/api/budget/autotrader</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer asdWQEQWEpoijMNBqwdADS12a==</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">dealer_id</span>": <span class="hljs-value"><span class="hljs-string">"123123"</span></span>,
-  "<span class="hljs-attribute">totalCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
-  "<span class="hljs-attribute">averageCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
-  "<span class="hljs-attribute">carCount</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
+  "<span class="hljs-attribute">total_car_price</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
+  "<span class="hljs-attribute">average_car_price</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
+  "<span class="hljs-attribute">car_count</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
   "<span class="hljs-attribute">currency</span>": <span class="hljs-value"><span class="hljs-string">"USD"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">currency</span>": <span class="hljs-value"><span class="hljs-string">"USD"</span></span>,
     "<span class="hljs-attribute">predicted_budget</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"annually"</span></span>,
+        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">2000</span></span>,
+        "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+      </span>},
       {
         "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"monthly"</span></span>,
         "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">200</span></span>,
@@ -40,12 +45,12 @@
       </span>},
       {
         "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"weekly"</span></span>,
-        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">50</span></span>,
+        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
         "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
       </span>},
       {
         "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"daily"</span></span>,
-        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">7.2</span></span>,
+        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
         "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
       </span>}
     ]</span>,
@@ -79,7 +84,7 @@
   </span>}</span>,
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"200"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">isSuccessful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  "<span class="hljs-attribute">is_successful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="impression-prediction" class="resource-group"><h2 class="group-heading">Impression Prediction <a href="#impression-prediction" class="permalink">&para;</a></h2><div id="impression-prediction-retrieve-impression-counts-→-json" class="resource"><h3 class="resource-heading">Retrieve Impression Counts → JSON <a href="#impression-prediction-retrieve-impression-counts-→-json" class="permalink">&nbsp;&para;</a></h3><div id="impression-prediction-retrieve-impression-counts-→-json-post" class="action post"><h4 class="action-heading"><div class="name">Retrieve Impression Counts → JSON</div><a href="#impression-prediction-retrieve-impression-counts-→-json-post" class="method post">POST</a><code class="uri">/api/impressions</code></h4><p>Calls google adowrds API and gets impression statistics for provided location and keywords.</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:5000</span>/api/impressions</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer asdWQEQWEpoijMNBqwdADS12a==</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"new York"</span></span>,
@@ -93,30 +98,38 @@
   "<span class="hljs-attribute">keywords</span>": <span class="hljs-value">[
     <span class="hljs-string">"ford"</span>
   ]</span>,
-  "<span class="hljs-attribute">totalCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
-  "<span class="hljs-attribute">averageCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
-  "<span class="hljs-attribute">carCount</span>": <span class="hljs-value"><span class="hljs-number">60</span>
+  "<span class="hljs-attribute">total_car_price</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
+  "<span class="hljs-attribute">average_car_price</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
+  "<span class="hljs-attribute">car_count</span>": <span class="hljs-value"><span class="hljs-number">60</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"new York"</span></span>,
-    "<span class="hljs-attribute">cpm</span>": <span class="hljs-value"><span class="hljs-number">1.2</span></span>,
-    "<span class="hljs-attribute">currency</span>": <span class="hljs-value"><span class="hljs-string">"USD"</span></span>,
-    "<span class="hljs-attribute">keywords</span>": <span class="hljs-value">[
+    "<span class="hljs-attribute">selected_location</span>": <span class="hljs-value"><span class="hljs-string">"new York"</span></span>,
+    "<span class="hljs-attribute">selected_cpm</span>": <span class="hljs-value"><span class="hljs-number">1.2</span></span>,
+    "<span class="hljs-attribute">selected_currency</span>": <span class="hljs-value"><span class="hljs-string">"USD"</span></span>,
+    "<span class="hljs-attribute">selected_keywords</span>": <span class="hljs-value">[
       <span class="hljs-string">"ford"</span>
     ]</span>,
+    "<span class="hljs-attribute">selected_budget</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"monthly"</span></span>,
+      "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">200</span></span>,
+      "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">selected_total_car_price</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
+    "<span class="hljs-attribute">selected_average_car_price</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
+    "<span class="hljs-attribute">selected_car_count</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
     "<span class="hljs-attribute">predictions</span>": <span class="hljs-value">[
       {
         "<span class="hljs-attribute">radius</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
           "<span class="hljs-attribute">unit</span>": <span class="hljs-value"><span class="hljs-string">"KM"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">budgetAmount</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
+        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">99</span></span>,
         "<span class="hljs-attribute">impressions</span>": <span class="hljs-value"><span class="hljs-number">100000</span></span>,
         "<span class="hljs-attribute">clicks</span>": <span class="hljs-value"><span class="hljs-number">2000</span></span>,
-        "<span class="hljs-attribute">marketingPredefinedAudiences</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">marketing_predefined_audiences</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
         "<span class="hljs-attribute">leads</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-        "<span class="hljs-attribute">numberOfSales</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-        "<span class="hljs-attribute">salesValue</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">number_of_sales</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">sales_value</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
         "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
       </span>},
       {
@@ -124,27 +137,27 @@
           "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
           "<span class="hljs-attribute">unit</span>": <span class="hljs-value"><span class="hljs-string">"KM"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">budgetAmount</span>": <span class="hljs-value"><span class="hljs-number">199</span></span>,
+        "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">199</span></span>,
         "<span class="hljs-attribute">impressions</span>": <span class="hljs-value"><span class="hljs-number">200000</span></span>,
         "<span class="hljs-attribute">clicks</span>": <span class="hljs-value"><span class="hljs-number">4000</span></span>,
-        "<span class="hljs-attribute">marketingPredefinedAudiences</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">marketing_predefined_audiences</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
         "<span class="hljs-attribute">leads</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-        "<span class="hljs-attribute">numberOfSales</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-        "<span class="hljs-attribute">salesValue</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-        "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+        "<span class="hljs-attribute">number_of_sales</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">sales_value</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">recommended</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
       </span>}
     ]
   </span>}</span>,
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"200"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">isSuccessful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  "<span class="hljs-attribute">is_successful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="training-apis" class="resource-group"><h2 class="group-heading">Training APIs <a href="#training-apis" class="permalink">&para;</a></h2><div id="training-apis-autotrader-training-api-→-json" class="resource"><h3 class="resource-heading">Autotrader Training API → JSON <a href="#training-apis-autotrader-training-api-→-json" class="permalink">&nbsp;&para;</a></h3><div id="training-apis-autotrader-training-api-→-json-post" class="action post"><h4 class="action-heading"><div class="name">Autotrader Training API → JSON</div><a href="#training-apis-autotrader-training-api-→-json-post" class="method post">POST</a><code class="uri">/api/training/autotrader</code></h4><p>This API allows to pass training data for autotrader ML model.</p>
 <p>P.S. - The API contract is not finalised yet.</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:5000</span>/api/training/autotrader</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer asdWQEQWEpoijMNBqwdADS12a==</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">dealer_id</span>": <span class="hljs-value"><span class="hljs-string">"123123"</span></span>,
-  "<span class="hljs-attribute">totalCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
-  "<span class="hljs-attribute">averageCarPrice</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
-  "<span class="hljs-attribute">carCount</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
+  "<span class="hljs-attribute">total_car_price</span>": <span class="hljs-value"><span class="hljs-string">"200000"</span></span>,
+  "<span class="hljs-attribute">average_car_price</span>": <span class="hljs-value"><span class="hljs-string">"4000"</span></span>,
+  "<span class="hljs-attribute">car_count</span>": <span class="hljs-value"><span class="hljs-number">60</span></span>,
   "<span class="hljs-attribute">budget</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">term</span>": <span class="hljs-value"><span class="hljs-string">"monthly"</span></span>,
     "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">300</span></span>,
@@ -154,7 +167,7 @@
   "<span class="hljs-attribute">data</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
   "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"200"</span></span>,
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">isSuccessful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  "<span class="hljs-attribute">is_successful</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 20 Feb 2019</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
