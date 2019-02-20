@@ -8,25 +8,33 @@ def autotraderBudgetPredictor():
     print(request.get_json())
     data = {
         "data": {
-            "location": "new York",
-            "cpm": 1.2,
-            "currency": "USD",
-            "keywords": [
+            "selected_location": "new York",
+            "selected_cpm": 1.2,
+            "selected_currency": "USD",
+            "selected_keywords": [
                 "ford"
             ],
+            "selected_budget": {
+                "term": "monthly",
+                "budget": 200,
+                "recommended": True
+            },
+            "selected_total_car_price": "200000",
+            "selected_average_car_price": "4000",
+            "selected_car_count": 60,
             "predictions": [
                 {
                     "radius": {
                         "value": 2,
                         "unit": "KM"
                     },
-                    "budgetAmount": 99,
+                    "budget": 99,
                     "impressions": 100000,
                     "clicks": 2000,
-                    "marketingPredefinedAudiences": None,
+                    "marketing_predefined_audiences": None,
                     "leads": None,
-                    "numberOfSales": None,
-                    "salesValue": None,
+                    "number_of_sales": None,
+                    "sales_value": None,
                     "recommended": True
                 },
                 {
@@ -34,19 +42,19 @@ def autotraderBudgetPredictor():
                         "value": 5,
                         "unit": "KM"
                     },
-                    "budgetAmount": 199,
+                    "budget": 199,
                     "impressions": 200000,
                     "clicks": 4000,
-                    "marketingPredefinedAudiences": None,
+                    "marketing_predefined_audiences": None,
                     "leads": None,
-                    "numberOfSales": None,
-                    "salesValue": None,
-                    "recommended": True
+                    "number_of_sales": None,
+                    "sales_value": None,
+                    "recommended": False
                 }
             ]
         },
         "code": "200",
         "message": None,
-        "isSuccessful": True
+        "is_successful": True
     }
     return jsonify(data)

@@ -7,11 +7,9 @@ autotrader_training_api_mod = Blueprint('autotrader_training_api', __name__)
 def autotradertrainingPredictor():
     print(request.get_json())
     data = {
-        "data": [
-            "autotrader training API is unavailable at the moment"
-        ],
+        "data": None,
         "code": "200",
         "message": None,
-        "isSuccessful": None
+        "is_successful": True
     }
     return jsonify(data)
