@@ -19,21 +19,22 @@ pip install virtualenv
 
 # switch to a directory where you would want to manage environment folders
 # create virtualenv instance in desired directory
-virtualenv flask_poc_manojc_env
+virtualenv flask_poc_env
 
 # activate the virtual environment
-source ./flask_poc_manojc_env/bin/activate
+source ./flask_poc_env/bin/activate
 
 # switch to the root directory of this git repo
 # set environment variables
+export FLASK_ENV=development
 export FLASK_DEBUG=1
-export FLASK_APP=./src/app/__init__.py
+export FLASK_APP=./src/run.py
 
 # install dependencies
 pip install -r requirements.txt
 
 # start the app
-flask start
+flask run
 
 # deactivate (in any directory)
 deactivate
