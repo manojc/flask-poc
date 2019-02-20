@@ -76,6 +76,7 @@ Provides budget prediction values.
     + Body
 
             {
+                "dealer_id": "123123",
                 "totalCarPrice": "200000",
                 "averageCarPrice": "4000",
                 "carCount": 60,
@@ -87,26 +88,53 @@ Provides budget prediction values.
     + Body
 
             {
-                "data" : [
-                    {
-                        "term": "monthly",
-                        "budget": 200,
-                        "currency": "USD",
-                        "recommended": true
-                    },
-                    {
-                        "term": "weekly",
-                        "budget": 50,
-                        "currency": "USD",
-                        "recommended": false
-                    },
-                    {
-                        "term": "daily",
-                        "budget": 7.2,
-                        "currency": "USD",
-                        "recommended": false
-                    }
-                ],                
+                "data": {
+                    "currency": "USD",
+                    "predicted_budget": [
+                        {
+                            "term": "monthly",
+                            "budget": 200,
+                            "recommended": true
+                        },
+                        {
+                            "term": "weekly",
+                            "budget": 50,
+                            "recommended": false
+                        },
+                        {
+                            "term": "daily",
+                            "budget": 7.2,
+                            "recommended": false
+                        }
+                    ],
+                    "budget_windows": [
+                        {
+                            "id": 1,
+                            "budget": 100,
+                            "term": "monthly"
+                        },
+                        {
+                            "id": 2,
+                            "budget": 200,
+                            "term": "monthly"
+                        },
+                        {
+                            "id": 3,
+                            "budget": 300,
+                            "term": "monthly"
+                        },
+                        {
+                            "id": 4,
+                            "budget": 400,
+                            "term": "monthly"
+                        },
+                        {
+                            "id": 5,
+                            "budget": 500,
+                            "term": "monthly"
+                        }
+                    ]
+                },
                 "code": "200",
                 "message": null,
                 "isSuccessful": true
@@ -130,6 +158,11 @@ Calls google adowrds API and gets impression statistics for provided location an
                 "location": "new York",
                 "cpm": 1.2,
                 "currency": "USD",
+                "budget": {
+                    "term": "monthly",
+                    "budget": 200,
+                    "recommended": true
+                },
                 "keywords" : [
                     "ford"
                 ],
@@ -206,15 +239,15 @@ P.S. - The API contract is not finalised yet.
     + Body
 
             {
-                "location": "new York",
-                "cpm": 1.2,
-                "currency": "USD",
-                "keywords" : [
-                    "ford"
-                ],
+                "dealer_id": "123123",
                 "totalCarPrice": "200000",
                 "averageCarPrice": "4000",
-                "carCount": 60
+                "carCount": 60,
+                "budget": {
+                    "term": "monthly",
+                    "budget": 300,
+                    "recommended": true
+                }
             }
 
 + Response 200 (application/json)
@@ -222,45 +255,7 @@ P.S. - The API contract is not finalised yet.
     + Body
 
             {
-                "data" : {
-                    "location": "new York",
-                    "cpm": 1.2,
-                    "currency": "USD",
-                    "keywords" : [
-                        "ford"
-                    ],
-                    "predictions": [
-                        {
-                            "radius": {
-                                "value": 2,
-                                "unit": "KM"
-                            },
-                            "budgetAmount": 99,
-                            "impressions": 100000,
-                            "clicks": 2000,
-                            "marketingPredefinedAudiences": null,
-                            "leads": null,
-                            "numberOfSales": null,
-                            "salesValue": null,
-                            "recommended": true
-                        },
-                        {
-                            "radius": {
-                                "value": 5,
-                                "unit": "KM"
-                            },
-                            "budgetAmount": 199,
-                            "impressions": 200000,
-                            "clicks": 4000,
-                            "marketingPredefinedAudiences": null,
-                            "leads": null,
-                            "numberOfSales": null,
-                            "salesValue": null,
-                            "recommended": true
-                        }
-                    ]
-
-                },
+                "data" : null,
                 "code": "200",
                 "message": null,
                 "isSuccessful": true
