@@ -74,38 +74,27 @@ def main(client, request=None):
 
     campaign_estimate = estimates['campaignEstimates'][0]
 
-    # Display the campaign level estimates segmented by platform.
-    if 'platformEstimates' in campaign_estimate:
-        platform_template = ('Results for the platform with ID: "%d" and name: '
-                             '"%s".')
-        for platform_estimate in campaign_estimate['platformEstimates']:
-            platform = platform_estimate['platform']
-            DisplayEstimate(platform_template % (platform['id'],
-                                                 platform['platformName']),
-                            platform_estimate['minEstimate'],
-                            platform_estimate['maxEstimate'])
-
     # Display the keyword estimates.
-    if 'adGroupEstimates' in campaign_estimate:
-        ad_group_estimate = campaign_estimate['adGroupEstimates'][0]
-        if 'keywordEstimates' in ad_group_estimate:
-            keyword_estimates = ad_group_estimate['keywordEstimates']
-            keyword_template = ('Results for the keyword with text "%s" and match '
-                                'type "%s":')
+    # if 'adGroupEstimates' in campaign_estimate:
+    #     ad_group_estimate = campaign_estimate['adGroupEstimates'][0]
+    #     if 'keywordEstimates' in ad_group_estimate:
+    #         keyword_estimates = ad_group_estimate['keywordEstimates']
+    #         keyword_template = ('Results for the keyword with text "%s" and match '
+    #                             'type "%s":')
 
-            keyword_estimates_and_requests = zip(keyword_estimates,
-                                                 keyword_estimate_requests)
+    #         keyword_estimates_and_requests = zip(keyword_estimates,
+    #                                              keyword_estimate_requests)
 
-            for keyword_tuple in keyword_estimates_and_requests:
-                if keyword_tuple[1].get('isNegative', False):
-                    continue
-                keyword = keyword_tuple[1]['keyword']
-                keyword_estimate = keyword_tuple[0]
-                DisplayEstimate(keyword_template % (keyword['text'],
-                                                    keyword['matchType']),
-                                keyword_estimate['min'], keyword_estimate['max'])
+    #         for keyword_tuple in keyword_estimates_and_requests:
+    #             if keyword_tuple[1].get('isNegative', False):
+    #                 continue
+    #             keyword = keyword_tuple[1]['keyword']
+    #             keyword_estimate = keyword_tuple[0]
+    #             DisplayEstimate(keyword_template % (keyword['text'],
+    #                                                 keyword['matchType']),
+    #                             keyword_estimate['min'], keyword_estimate['max'])
 
-    return campaign_estimate
+    return campaign_estimate["adGroupEstimates"][0]["keywordEstimates"]
 
 
 def _CalculateMean(min_est, max_est):
