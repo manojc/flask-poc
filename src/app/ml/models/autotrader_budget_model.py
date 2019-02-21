@@ -25,6 +25,10 @@ def predict_budget(request):
         return None
 
 
+def get_budget_windows():
+    return [999, 999, 899, 799, 699, 599, 499, 399, 299, 199, 99]
+
+
 # call the function
 # ================-
 if __name__ == '__main__':
