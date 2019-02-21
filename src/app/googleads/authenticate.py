@@ -1,5 +1,4 @@
-from googleads import adwords
-from googleads import oauth2
+from googleads import adwords, oauth2
 
 # OAuth2 credential information. In a real application, you'd probably be
 # pulling these values from a credential storage.
@@ -26,15 +25,6 @@ def main():
     adwords_client = adwords.AdWordsClient(
         developer_token, oauth2_client, user_agent,
         client_customer_id=client_customer_id)
-
-    customer_service = adwords_client.GetService(
-        'CustomerService', version='v201809')
-    customers = customer_service.getCustomers()
-
-    print('You are logged in as a user with access to the following customers:')
-
-    for customer in customers:
-        print('\t%s' % customer['customerId'])
 
     return adwords_client
 

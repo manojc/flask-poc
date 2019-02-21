@@ -5,96 +5,68 @@ from app.googleads.authenticate import main as authenticate
 def main(client, request=None):
     # Initialize appropriate service.
     traffic_estimator_service = client.GetService(
-        'TrafficEstimatorService', version='v201809')
+        "TrafficEstimatorService", version="v201809")
 
     # Construct selector object and retrieve traffic estimates.
     keywords = [
-        {'text': 'mars cruise', 'matchType': 'BROAD'},
-        {'text': 'cheap cruise', 'matchType': 'PHRASE'},
-        {'text': 'cruise', 'matchType': 'EXACT'}
+        {"text": "mars cruise", "matchType": "BROAD"}
     ]
-    negative_keywords = [
-        {'text': 'moon walk', 'matchType': 'BROAD'}
-    ]
+
     keyword_estimate_requests = []
     for keyword in keywords:
         keyword_estimate_requests.append({
-            'keyword': {
-                'xsi_type': 'Keyword',
-                'matchType': keyword['matchType'],
-                'text': keyword['text']
+            "keyword": {
+                "xsi_type": "Keyword",
+                "matchType": keyword["matchType"],
+                "text": keyword["text"]
             }
-        })
-
-    for keyword in negative_keywords:
-        keyword_estimate_requests.append({
-            'keyword': {
-                'xsi_type': 'Keyword',
-                'matchType': keyword['matchType'],
-                'text': keyword['text']
-            },
-            'isNegative': 'true'
         })
 
     # Create ad group estimate requests.
     adgroup_estimate_requests = [{
-        'keywordEstimateRequests': keyword_estimate_requests,
-        'maxCpc': {
-            'xsi_type': 'Money',
-            'microAmount': '1000000'
+        "keywordEstimateRequests": keyword_estimate_requests,
+        "maxCpc": {
+            "xsi_type": "Money",
+            "microAmount": "1000000"
         }
     }]
 
     # Create campaign estimate requests.
     campaign_estimate_requests = [{
-        'adGroupEstimateRequests': adgroup_estimate_requests,
-        'criteria': [
+        "adGroupEstimateRequests": adgroup_estimate_requests,
+        "criteria": [
             {
-                'xsi_type': 'Location',
-                'id': '2840'  # United States.
+                "xsi_type": "Location",
+                "id": "2840"  # United States.
             },
             {
-                'xsi_type': 'Language',
-                'id': '1000'  # English.
+                "xsi_type": "Language",
+                "id": "1000"  # English.
             }
         ],
     }]
 
     # Create the selector.
     selector = {
-        'campaignEstimateRequests': campaign_estimate_requests,
+        "campaignEstimateRequests": campaign_estimate_requests,
     }
 
     # Optional: Request a list of campaign-level estimates segmented by
     # platform.
-    selector['platformEstimateRequested'] = True
+    selector["platformEstimateRequested"] = True
 
     # Get traffic estimates.
     estimates = traffic_estimator_service.get(selector)
 
-    campaign_estimate = estimates['campaignEstimates'][0]
+    keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
 
-    # Display the keyword estimates.
-    # if 'adGroupEstimates' in campaign_estimate:
-    #     ad_group_estimate = campaign_estimate['adGroupEstimates'][0]
-    #     if 'keywordEstimates' in ad_group_estimate:
-    #         keyword_estimates = ad_group_estimate['keywordEstimates']
-    #         keyword_template = ('Results for the keyword with text "%s" and match '
-    #                             'type "%s":')
+    response = []
 
-    #         keyword_estimates_and_requests = zip(keyword_estimates,
-    #                                              keyword_estimate_requests)
+    for keyword_item in keyword_estimate:
+        response.append(_DisplayEstimate(
+            keyword_item["min"], keyword_item["max"]))
 
-    #         for keyword_tuple in keyword_estimates_and_requests:
-    #             if keyword_tuple[1].get('isNegative', False):
-    #                 continue
-    #             keyword = keyword_tuple[1]['keyword']
-    #             keyword_estimate = keyword_tuple[0]
-    #             DisplayEstimate(keyword_template % (keyword['text'],
-    #                                                 keyword['matchType']),
-    #                             keyword_estimate['min'], keyword_estimate['max'])
-
-    return campaign_estimate["adGroupEstimates"][0]["keywordEstimates"]
+    return response
 
 
 def _CalculateMean(min_est, max_est):
@@ -104,45 +76,32 @@ def _CalculateMean(min_est, max_est):
         return None
 
 
-def _FormatMean(mean):
-    if mean:
-        return '%.2f' % mean
-    else:
-        return 'N/A'
+def _DisplayEstimate(min_estimate, max_estimate):
+    mean_avg_cpc = (_CalculateMean(min_estimate["averageCpc"]["microAmount"],
+                                   max_estimate["averageCpc"]["microAmount"])
+                    if "averageCpc" in min_estimate
+                    and min_estimate["averageCpc"] else None)
+    mean_avg_pos = (_CalculateMean(min_estimate["averagePosition"],
+                                   max_estimate["averagePosition"])
+                    if "averagePosition" in min_estimate
+                    and min_estimate["averagePosition"] else None)
+    mean_clicks = _CalculateMean(min_estimate["clicksPerDay"],
+                                 max_estimate["clicksPerDay"])
+    mean_impressions = _CalculateMean(min_estimate["impressionsPerDay"],
+                                      max_estimate["impressionsPerDay"])
+    mean_total_cost = _CalculateMean(min_estimate["totalCost"]["microAmount"],
+                                     max_estimate["totalCost"]["microAmount"])
+
+    return {
+        "mean_avg_cpc": mean_avg_cpc,
+        "mean_avg_pos": mean_avg_pos,
+        "mean_clicks": mean_clicks,
+        "mean_impressions": mean_impressions,
+        "mean_total_cost": mean_total_cost
+    }
 
 
-def DisplayEstimate(message, min_estimate, max_estimate):
-    """Displays mean average cpc, position, clicks, and total cost for estimate.
-
-    Args:
-      message: str message to display for the given estimate.
-      min_estimate: sudsobject containing a minimum estimate from the
-        TrafficEstimatorService response.
-      max_estimate: sudsobject containing a maximum estimate from the
-        TrafficEstimatorService response.
-    """
-    # Find the mean of the min and max values.
-    mean_avg_cpc = (_CalculateMean(min_estimate['averageCpc']['microAmount'],
-                                   max_estimate['averageCpc']['microAmount'])
-                    if 'averageCpc' in min_estimate
-                    and min_estimate['averageCpc'] else None)
-    mean_avg_pos = (_CalculateMean(min_estimate['averagePosition'],
-                                   max_estimate['averagePosition'])
-                    if 'averagePosition' in min_estimate
-                    and min_estimate['averagePosition'] else None)
-    mean_clicks = _CalculateMean(min_estimate['clicksPerDay'],
-                                 max_estimate['clicksPerDay'])
-    mean_total_cost = _CalculateMean(min_estimate['totalCost']['microAmount'],
-                                     max_estimate['totalCost']['microAmount'])
-
-    print(message)
-    print('  Estimated average CPC: %s' % _FormatMean(mean_avg_cpc))
-    print('  Estimated ad position: %s' % _FormatMean(mean_avg_pos))
-    print('  Estimated daily clicks: %s' % _FormatMean(mean_clicks))
-    print('  Estimated daily cost: %s' % _FormatMean(mean_total_cost))
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Initialize client object.
     adwords_client = authenticate()
 

@@ -10,4 +10,5 @@ impressions_mod = Blueprint("impressions_api", __name__)
 def autotraderBudgetPredictor():
     keyword_request = request.get_json()
     client = authenticate()
-    return Response(jsonify({"devices": estimator(client, keyword_request)}), mimetype="application/json")
+    response = estimator(client, keyword_request)
+    return jsonify(response)
