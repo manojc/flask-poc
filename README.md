@@ -6,15 +6,17 @@ This POC is to understand flask restful APIs.
 
 Clone the GIT repo and fire following commands.
 
+Copy `env.dist` file to `.env` and replace test values with valid values.
+
 ```bash
 
-# update package manager
+# update package manager (only for first time time)
 sudo apt-get update
 
-# install pip
+# install pip (only for first time time)
 sudo apt-get install python-pip
 
-# install virtualenv package
+# install virtualenv package (only for first time time)
 pip install virtualenv
 
 # switch to a directory where you would want to manage environment folders
@@ -24,19 +26,13 @@ virtualenv flask_poc_env
 # activate the virtual environment
 source ./flask_poc_env/bin/activate
 
-# switch to the root directory of this git repo
-# set environment variables
-export FLASK_ENV=development
-export FLASK_DEBUG=1
-export FLASK_APP=./src/run.py
-
-# install dependencies
+# switch to git repo root directory & install dependencies
 pip install -r requirements.txt
 
 # start the app
 flask run
 
-# deactivate (in any directory)
+# exit virtual environment (form any directory)
 deactivate
 ```
 
