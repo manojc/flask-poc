@@ -2,14 +2,14 @@ from googleads import adwords
 from app.googleads.authenticate import main as authenticate
 
 
-def main(client, request=None):
-    # Initialize appropriate service.
+def main(request):
+    client = authenticate()
+
     traffic_estimator_service = client.GetService(
         "TrafficEstimatorService", version="v201809")
 
-    # Construct selector object and retrieve traffic estimates.
     keywords = [
-        {"text": "mars cruise", "matchType": "BROAD"}
+        {"text": "ford", "matchType": "BROAD"}
     ]
 
     keyword_estimate_requests = []
@@ -22,7 +22,6 @@ def main(client, request=None):
             }
         })
 
-    # Create ad group estimate requests.
     adgroup_estimate_requests = [{
         "keywordEstimateRequests": keyword_estimate_requests,
         "maxCpc": {
@@ -31,7 +30,6 @@ def main(client, request=None):
         }
     }]
 
-    # Create campaign estimate requests.
     campaign_estimate_requests = [{
         "adGroupEstimateRequests": adgroup_estimate_requests,
         "criteria": [
@@ -46,16 +44,12 @@ def main(client, request=None):
         ],
     }]
 
-    # Create the selector.
     selector = {
         "campaignEstimateRequests": campaign_estimate_requests,
     }
 
-    # Optional: Request a list of campaign-level estimates segmented by
-    # platform.
     selector["platformEstimateRequested"] = True
 
-    # Get traffic estimates.
     estimates = traffic_estimator_service.get(selector)
 
     keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
@@ -93,16 +87,13 @@ def _DisplayEstimate(min_estimate, max_estimate):
                                      max_estimate["totalCost"]["microAmount"])
 
     return {
-        "mean_avg_cpc": mean_avg_cpc,
-        "mean_avg_pos": mean_avg_pos,
-        "mean_clicks": mean_clicks,
-        "mean_impressions": mean_impressions,
-        "mean_total_cost": mean_total_cost
+        "cost_per_click": mean_avg_cpc,
+        "average_position": mean_avg_pos,
+        "clicks_per_day": mean_clicks,
+        "impressions_per_day": mean_impressions,
+        "total_cost": mean_total_cost
     }
 
 
 if __name__ == "__main__":
-    # Initialize client object.
-    adwords_client = authenticate()
-
-    main(adwords_client)
+    main({})
