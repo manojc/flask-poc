@@ -8,49 +8,46 @@ def main(request):
     traffic_estimator_service = client.GetService(
         "TrafficEstimatorService", version="v201809")
 
-    keywords = [
-        {"text": "ford", "matchType": "BROAD"}
-    ]
-
-    keyword_estimate_requests = []
-    for keyword in keywords:
-        keyword_estimate_requests.append({
-            "keyword": {
-                "xsi_type": "Keyword",
-                "matchType": keyword["matchType"],
-                "text": keyword["text"]
-            }
-        })
-
-    adgroup_estimate_requests = [{
-        "keywordEstimateRequests": keyword_estimate_requests,
-        "maxCpc": {
-            "xsi_type": "Money",
-            "microAmount": "1000000"
-        }
-    }]
-
-    campaign_estimate_requests = [{
-        "adGroupEstimateRequests": adgroup_estimate_requests,
-        "criteria": [
-            {
-                "xsi_type": "Location",
-                "id": "2840"  # United States.
+    trafficEstimatorSelector = {
+        "campaignEstimateRequests": [{
+            "campaignId": None,
+            "adGroupEstimateRequests": [{
+                "adGroupId": None,
+                "keywordEstimateRequests": [{
+                    "keyword": {
+                        "xsi_type": "Keyword",
+                        "matchType": "BROAD",
+                        "text": request["keywords"][0]
+                    },
+                    "maxCpc": {
+                        "xsi_type": "Money",
+                        "microAmount": "2000000"
+                    },
+                    "isNegative": False
+                }]
+            }],
+            "criteria": [
+                {
+                    "xsi_type": "Location",
+                    "id": "2840"  # United States.
+                },
+                {
+                    "xsi_type": "Language",
+                    "id": "1000"  # English.
+                }
+            ],
+            "networkSetting": {
+                "targetGoogleSearch": True
             },
-            {
-                "xsi_type": "Language",
-                "id": "1000"  # English.
+            "dailyBudget": {
+                "xsi_type": "Money",
+                "microAmount": "22000000"
             }
-        ],
-    }]
-
-    selector = {
-        "campaignEstimateRequests": campaign_estimate_requests,
+        }],
+        "platformEstimateRequested": False
     }
 
-    selector["platformEstimateRequested"] = True
-
-    estimates = traffic_estimator_service.get(selector)
+    estimates = traffic_estimator_service.get(trafficEstimatorSelector)
 
     keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
 
