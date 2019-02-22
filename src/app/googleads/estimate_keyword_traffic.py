@@ -1,3 +1,4 @@
+from json import dumps
 from googleads import adwords
 from app.googleads.authenticate import main as authenticate
 
@@ -20,16 +21,18 @@ def main(request):
                         "text": request["keywords"][0]
                     },
                     "maxCpc": {
-                        "xsi_type": "Money",
-                        "microAmount": "2000000"
+                        "microAmount": "1000000"
                     },
                     "isNegative": False
-                }]
+                }],
+                "maxCpc": {
+                    "microAmount": "1000000"
+                }
             }],
             "criteria": [
                 {
                     "xsi_type": "Location",
-                    "id": "2840"  # United States.
+                    "id": "1023191"  # New York.
                 },
                 {
                     "xsi_type": "Language",
@@ -40,14 +43,17 @@ def main(request):
                 "targetGoogleSearch": True
             },
             "dailyBudget": {
-                "xsi_type": "Money",
-                "microAmount": "22000000"
+                "microAmount": str(int((request["budget"]["budget"] / 30 * 1000000)))
             }
         }],
         "platformEstimateRequested": False
     }
 
+    print(dumps(trafficEstimatorSelector, indent=4, sort_keys=True))
+
     estimates = traffic_estimator_service.get(trafficEstimatorSelector)
+
+    print(estimates)
 
     keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
 
@@ -78,17 +84,20 @@ def _DisplayEstimate(min_estimate, max_estimate):
                     and min_estimate["averagePosition"] else None)
     mean_clicks = _CalculateMean(min_estimate["clicksPerDay"],
                                  max_estimate["clicksPerDay"])
-    mean_impressions = _CalculateMean(min_estimate["impressionsPerDay"],
-                                      max_estimate["impressionsPerDay"])
+    click_through_rate = _CalculateMean(min_estimate["clickThroughRate"],
+                                        max_estimate["clickThroughRate"])
+    # mean_impressions = _CalculateMean(min_estimate["impressionsPerDay"],
+    #                                   max_estimate["impressionsPerDay"])
     mean_total_cost = _CalculateMean(min_estimate["totalCost"]["microAmount"],
                                      max_estimate["totalCost"]["microAmount"])
 
     return {
-        "cost_per_click": mean_avg_cpc,
-        "average_position": mean_avg_pos,
+        "impressions_per_day": (mean_clicks / click_through_rate),
         "clicks_per_day": mean_clicks,
-        "impressions_per_day": mean_impressions,
-        "total_cost": mean_total_cost
+        "click_through_rate": click_through_rate,
+        "cost_per_click": mean_avg_cpc / 1000000,
+        "total_cost": mean_total_cost / 1000000,
+        "average_position": mean_avg_pos
     }
 
 
