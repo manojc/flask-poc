@@ -1,11 +1,8 @@
 from numpy import nan, array as numpy_array
 from pandas import read_csv, merge, DataFrame
 
-
-bands_df = read_csv(
-    "/home/localstars/code/github/flask-poc/src/app/ml/models/bands.csv")
-df = read_csv(
-    "/home/localstars/code/github/flask-poc/src/app/ml/models/slider.csv")
+bands_df = read_csv("./bands.csv")
+df = read_csv("./slider.csv")
 
 
 def add_band_id(x):
