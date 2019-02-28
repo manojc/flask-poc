@@ -1,38 +1,38 @@
-def predict_budget(request):
-    if (int(request["total_car_price"]) >= 5872200 and int(request["car_count"]) >= 135219):
-        return 999
-    elif (int(request["total_car_price"]) > 3278076 and int(request["total_car_price"]) <= 5872200 and int(request["car_count"]) > 92111 and int(request["car_count"]) <= 135219):
-        return 999
-    elif (int(request["total_car_price"]) > 2287621 and int(request["total_car_price"]) <= 328076 and int(request["car_count"]) > 68015 and int(request["car_count"]) <= 92111):
-        return 899
-    elif (int(request["total_car_price"]) > 1552400 and int(request["total_car_price"]) <= 2287621 and int(request["car_count"]) > 50139 and int(request["car_count"]) <= 68015):
-        return 799
-    elif (int(request["total_car_price"]) > 907690 and int(request["total_car_price"]) <= 1552400 and int(request["car_count"]) > 32067 and int(request["car_count"]) <= 50139):
-        return 699
-    elif (int(request["total_car_price"]) > 350017 and int(request["total_car_price"]) <= 907690 and int(request["car_count"]) > 16517 and int(request["car_count"]) <= 32067):
-        return 599
-    elif (int(request["total_car_price"]) > 150294 and int(request["total_car_price"]) <= 350017 and int(request["car_count"]) > 8931 and int(request["car_count"]) <= 16517):
-        return 499
-    elif (int(request["total_car_price"]) > 69676 and int(request["total_car_price"]) <= 150294 and int(request["car_count"]) > 4586 and int(request["car_count"]) <= 8931):
-        return 399
-    elif (int(request["total_car_price"]) > 28108 and int(request["total_car_price"]) <= 69676 and int(request["car_count"]) > 2224 and int(request["car_count"]) <= 4586):
-        return 299
-    elif (int(request["total_car_price"]) > 4651 and int(request["total_car_price"]) <= 28108 and int(request["car_count"]) > 322 and int(request["car_count"]) <= 2224):
-        return 199
-    elif (int(request["total_car_price"]) > 0 and int(request["total_car_price"]) <= 4651 and int(request["car_count"]) > 0 and int(request["car_count"]) <= 322):
-        return 99
+from numpy import nan, array as numpy_array
+from pandas import read_csv, merge, DataFrame
+
+bands_df = read_csv("./bands.csv")
+df = read_csv("./slider.csv")
+
+
+def add_band_id(x):
+    band_df = bands_df.apply(lambda y: (y[6], y[7]) if
+                             (x["price"] >= y["start_price"] and x["price"] <= y["End_price"]
+                              and x["Total_cars"] == y['Total_cars'])
+                             else None, axis=1)
+    band_df = band_df.dropna(axis=0, how='all')
+    if band_df.empty:
+        band_df = nan
     else:
-        return None
+        band_df = band_df.to_string(index=False)
+    return band_df
 
 
-def get_budget_windows():
-    return [999, 999, 899, 799, 699, 599, 499, 399, 299, 199, 99]
+def get_bands(df):
+    df['ticker'] = df.apply(add_band_id, axis=1)
+    df['new'] = df.ticker.str.replace("[({':)]", "")
+    gh = df['new'].str.split(',', expand=True)
+    gh = gh.rename({0: 'band', 1: 'budget'}, axis='columns')
+    df = df.drop(['ticker', 'new'], axis=1)
+    merged = merge(DataFrame(gh), DataFrame(df),
+                   left_index=True, right_index=True)
+    merged = numpy_array(merged)
+    print(merged)
+    return merged
 
 
 # call the function
 # ================-
 if __name__ == '__main__':
-    predict_budget({
-        "total_car_price": "200000",
-        "car_count": 60
-    })
+    print(df)
+    get_bands(df)

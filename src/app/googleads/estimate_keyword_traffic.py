@@ -21,12 +21,12 @@ def main(request):
                         "text": request["keywords"][0]
                     },
                     "maxCpc": {
-                        "microAmount": "1000000"
+                        "microAmount": "2000000"
                     },
                     "isNegative": False
                 }],
                 "maxCpc": {
-                    "microAmount": "1000000"
+                    "microAmount": "2000000"
                 }
             }],
             "criteria": [
@@ -49,11 +49,11 @@ def main(request):
         "platformEstimateRequested": False
     }
 
-    print(dumps(trafficEstimatorSelector, indent=4, sort_keys=True))
+    # print(dumps(trafficEstimatorSelector, indent=4, sort_keys=True))
 
     estimates = traffic_estimator_service.get(trafficEstimatorSelector)
 
-    print(estimates)
+    # print(estimates)
 
     keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
 
@@ -86,13 +86,14 @@ def _DisplayEstimate(min_estimate, max_estimate):
                                  max_estimate["clicksPerDay"])
     click_through_rate = _CalculateMean(min_estimate["clickThroughRate"],
                                         max_estimate["clickThroughRate"])
-    # mean_impressions = _CalculateMean(min_estimate["impressionsPerDay"],
-    #                                   max_estimate["impressionsPerDay"])
+    mean_impressions = _CalculateMean(min_estimate["impressionsPerDay"],
+                                      max_estimate["impressionsPerDay"])
     mean_total_cost = _CalculateMean(min_estimate["totalCost"]["microAmount"],
                                      max_estimate["totalCost"]["microAmount"])
 
     return {
-        "impressions_per_day": (mean_clicks / click_through_rate),
+        "impressions_per_day": mean_impressions,
+        # "impressions_per_day": (mean_clicks / click_through_rate),
         "clicks_per_day": mean_clicks,
         "click_through_rate": click_through_rate,
         "cost_per_click": mean_avg_cpc / 1000000,

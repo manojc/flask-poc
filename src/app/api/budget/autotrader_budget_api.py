@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.ml.models.autotrader_budget_model import predict_budget, get_budget_windows
+from app.ml.models.autotrader_budget_model_old import predict_budget, get_budget_windows
 
 autotrader_budget_api_mod = Blueprint('autotrader_budget_api', __name__)
 

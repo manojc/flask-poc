@@ -103,6 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# skip data directory
+data
+
 # node files / folders
 node_modules
 
