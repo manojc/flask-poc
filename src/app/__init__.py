@@ -1,23 +1,21 @@
+from os import getenv
 from flask import Flask
-from app.routes.ui.routes import ui_module
-from app.routes.impressions.impressions_api import impressions_module
-from app.routes.budget.autotrader_budget_api import autotrader_budget_api_module
-from app.routes.budget.magento_budget_api import magento_budget_api_module
-from app.routes.training.autotrader_training_api import autotrader_training_api_module
-from app.routes.training.magento_training_api import magento_training_api_module
+from .routes import autotrader_budget_routes, magento_budget_routes, impressions_routes, autotrader_training_routes, magento_training_routes, ui_routes
 
 app = Flask(__name__)
 
+url_prefix = getenv("API_PREFIX")
+
 # budget APIs
-app.register_blueprint(autotrader_budget_api_module, url_prefix='/api')
-app.register_blueprint(magento_budget_api_module, url_prefix='/api')
+app.register_blueprint(autotrader_budget_routes, url_prefix=url_prefix)
+app.register_blueprint(magento_budget_routes, url_prefix=url_prefix)
 
 # impressions API routes
-app.register_blueprint(impressions_module, url_prefix='/api')
+app.register_blueprint(impressions_routes, url_prefix=url_prefix)
 
 # training API routes
-app.register_blueprint(autotrader_training_api_module, url_prefix='/api')
-app.register_blueprint(magento_training_api_module, url_prefix='/api')
+app.register_blueprint(autotrader_training_routes, url_prefix=url_prefix)
+app.register_blueprint(magento_training_routes, url_prefix=url_prefix)
 
 # UI Routes
-app.register_blueprint(ui_module)
+app.register_blueprint(ui_routes)

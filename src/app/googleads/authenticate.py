@@ -4,7 +4,7 @@ from googleads import adwords, oauth2
 ADWORDS_CLIENT = None
 
 
-def main():
+def authenticate():
 
     global ADWORDS_CLIENT
 
@@ -28,4 +28,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    authenticate()

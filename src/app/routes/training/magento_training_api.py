@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
 
-magento_training_api_module = Blueprint('magento_training_api', __name__)
+magento_training_routes_module = Blueprint('magento_training_api', __name__)
 
 
-@magento_training_api_module.route("/training/magento", methods=['POST'])
+@magento_training_routes_module.route("/training/magento", methods=['POST'])
 def autotradertrainingPredictor():
     print(request.get_json())
     data = {

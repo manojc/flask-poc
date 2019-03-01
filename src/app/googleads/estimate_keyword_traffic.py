@@ -1,6 +1,6 @@
 from json import dumps
 from googleads import adwords
-from app.googleads.authenticate import main as authenticate
+from .authenticate import authenticate
 
 
 def main(request):

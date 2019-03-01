@@ -1,0 +1,6 @@
+from .ui.routes import ui_module as ui_routes
+from .impressions.impressions_api import impressions_routes_module as impressions_routes
+from .budget.autotrader_budget_api import autotrader_budget_route_module as autotrader_budget_routes
+from .budget.magento_budget_api import magento_budget_routes_module as magento_budget_routes
+from .training.autotrader_training_api import autotrader_training_routes_module as autotrader_training_routes
+from .training.magento_training_api import magento_training_routes_module as magento_training_routes

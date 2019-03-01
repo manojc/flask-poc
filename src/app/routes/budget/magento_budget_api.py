@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request
 
-magento_budget_api_module = Blueprint('magento_budget_api', __name__)
+magento_budget_routes_module = Blueprint('magento_budget_api', __name__)
 
 
-@magento_budget_api_module.route("/budget/magento", methods=['POST'])
-def autotraderBudgetPredictor():
+@magento_budget_routes_module.route("/budget/magento", methods=['POST'])
+def magento_budget_predictor():
     print(request.get_json())
     data = {
         "data": [
