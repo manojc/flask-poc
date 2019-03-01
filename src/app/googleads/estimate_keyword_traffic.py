@@ -53,7 +53,7 @@ def main(request):
 
     estimates = traffic_estimator_service.get(trafficEstimatorSelector)
 
-    # print(estimates)
+    print(estimates)
 
     keyword_estimate = estimates["campaignEstimates"][0]["adGroupEstimates"][0]["keywordEstimates"]
 
